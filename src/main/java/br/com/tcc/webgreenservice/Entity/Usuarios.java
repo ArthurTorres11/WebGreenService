@@ -3,17 +3,21 @@ package br.com.tcc.webgreenservice.Entity;
 import br.com.tcc.webgreenservice.Entity.enums.Perfil;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "tb_usuarios")
 public class Usuarios {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario", nullable = false)
     private int id;
 
     @Column(name = "cpf_usuario", unique = true, nullable = false)
+    @Size(min = 11, max = 11, message = "CPF deve conter 11 dígitos")
+    @Pattern(regexp = "\\d{11}", message = "CPF deve conter apenas números")
     private String cpf;
 
     @Column(name = "nome_usuario", nullable = false)
